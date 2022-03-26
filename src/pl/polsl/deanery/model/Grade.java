@@ -1,4 +1,4 @@
-package pl.polsl.dziekanat.model;
+package pl.polsl.deanery.model;
 
 import javax.persistence.Entity;
 

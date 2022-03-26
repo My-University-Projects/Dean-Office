@@ -1,6 +1,7 @@
-package pl.polsl.dziekanat.model;
+package pl.polsl.deanery.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,15 +9,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Teacher {
+public class Student {
 	
 	@Id
 	@GeneratedValue
 	private Integer ID;
 	private String name;
 	private String surname;
-	private List<Subject> subjects = new ArrayList<Subject>();
+	private Date birthDate;
+	private List<Grade> grades = new ArrayList<Grade>();
 	
+	public List<Grade> getGrades() {
+		return grades;
+	}
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
 	public Integer getID() {
 		return ID;
 	}
@@ -35,10 +43,11 @@ public class Teacher {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	public List<Subject> getSubjects() {
-		return subjects;
+	public Date getBirthDate() {
+		return birthDate;
 	}
-	public void setSubjects(List<Subject> subjects) {
-		this.subjects = subjects;
-	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}	
+
 }
