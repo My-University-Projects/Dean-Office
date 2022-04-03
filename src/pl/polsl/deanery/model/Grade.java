@@ -1,16 +1,27 @@
 package pl.polsl.deanery.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Grade {
 	
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private Integer studentId;
 	private Integer subjectId;
 	private Integer grade;
 	private Student student;
 	private Subject subject;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public int getStudentId() {
 		return studentId;
 	}
