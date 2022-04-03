@@ -5,23 +5,23 @@ import javax.persistence.Entity;
 @Entity
 public class Grade {
 	
-	private Integer studentID;
-	private Integer subjectID;
+	private Integer studentId;
+	private Integer subjectId;
 	private Integer grade;
 	private Student student;
 	private Subject subject;
 	
-	public int getStudentID() {
-		return studentID;
+	public int getStudentId() {
+		return studentId;
 	}
-	public void setStudentID(Integer studentID) {
-		this.studentID = studentID;
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
 	}
-	public int getSubjectID() {
-		return subjectID;
+	public int getSubjectId() {
+		return subjectId;
 	}
-	public void setSubjectID(Integer subjectID) {
-		this.subjectID = subjectID;
+	public void setSubjectId(Integer subjectId) {
+		this.subjectId = subjectId;
 	}
 	public int getGrade() {
 		return grade;

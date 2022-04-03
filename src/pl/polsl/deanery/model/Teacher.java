@@ -6,22 +6,30 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Teacher {
 	
 	@Id
 	@GeneratedValue
-	private Integer ID;
+	private Integer id;
 	private String name;
 	private String surname;
+	@ManyToMany
+	@JoinTable(
+	name = "subject_teacher", 
+	joinColumns = @JoinColumn(name = "teacher_id"), 
+	inverseJoinColumns = @JoinColumn(name = "subject_id"))
 	private List<Subject> subjects = new ArrayList<Subject>();
 	
-	public Integer getID() {
-		return ID;
+	public Integer getId() {
+		return id;
 	}
-	public void setID(Integer iD) {
-		ID = iD;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

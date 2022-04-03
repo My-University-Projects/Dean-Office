@@ -6,23 +6,27 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Subject {
 	
 	@Id
 	@GeneratedValue
-	private Integer ID;
+	private Integer id;
 	private String name;
 	private String Code;
+	@ManyToMany
 	private List<Teacher> teachers = new ArrayList<Teacher>();
+	@OneToMany(mappedBy = "subject")
 	private List<Grade> grades = new ArrayList<Grade>();
 	
-	public Integer getID() {
-		return ID;
+	public Integer getId() {
+		return id;
 	}
-	public void setID(Integer iD) {
-		ID = iD;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

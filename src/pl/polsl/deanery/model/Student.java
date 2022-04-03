@@ -7,16 +7,18 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Student {
 	
 	@Id
 	@GeneratedValue
-	private Integer ID;
+	private Integer id;
 	private String name;
 	private String surname;
 	private Date birthDate;
+	@OneToMany(mappedBy = "student")
 	private List<Grade> grades = new ArrayList<Grade>();
 	
 	public List<Grade> getGrades() {
@@ -25,11 +27,11 @@ public class Student {
 	public void setGrades(List<Grade> grades) {
 		this.grades = grades;
 	}
-	public Integer getID() {
-		return ID;
+	public Integer getId() {
+		return id;
 	}
-	public void setID(Integer iD) {
-		ID = iD;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
