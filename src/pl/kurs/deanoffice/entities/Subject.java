@@ -1,5 +1,6 @@
-package pl.kurs.deanery.entities;
+package pl.kurs.deanoffice.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "subjects")
-public class Subject {
+public class Subject implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String name;
-	private String Code;
+	private String code;
 	@ManyToMany(mappedBy = "subjects")
 	private List<Teacher> teachers = new ArrayList<Teacher>();
 	@OneToMany(mappedBy = "subject")
@@ -39,11 +41,11 @@ public class Subject {
 	}
 
 	public String getCode() {
-		return Code;
+		return code;
 	}
 
 	public void setCode(String code) {
-		Code = code;
+		code = code;
 	}
 
 	public List<Teacher> getTeachers() {

@@ -1,4 +1,4 @@
-package pl.kurs.deanery.entities;
+package pl.kurs.deanoffice.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,24 +1,37 @@
-package pl.kurs.deanery.entities;
+package pl.kurs.deanoffice.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
-@Entity(name = "teachers")
-public class Teacher {
+@Entity(name = "students")
+public class Student implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String surname;
-	@ManyToMany
-	private List<Subject> subjects = new ArrayList<Subject>();
+	private Date birthDate;
+	@OneToMany(mappedBy = "student")
+	private List<Grade> grades = new ArrayList<Grade>();
+
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
 
 	public Integer getId() {
 		return id;
@@ -44,11 +57,12 @@ public class Teacher {
 		this.surname = surname;
 	}
 
-	public List<Subject> getSubjects() {
-		return subjects;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
-	public void setSubjects(List<Subject> subjects) {
-		this.subjects = subjects;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
+
 }
