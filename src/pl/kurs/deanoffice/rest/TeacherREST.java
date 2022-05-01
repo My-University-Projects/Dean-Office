@@ -38,14 +38,20 @@ public class TeacherREST implements TeacherRepository {
 	@Override
 	@GET
 	public List<Teacher> get() {
-		return bean.get();
+		List<Teacher> teachers = bean.get();
+		for(Teacher t : teachers){
+			t.setSubjects(new ArrayList<Subject>()); // Will be changed
+		}
+		return teachers;
 	}
 
 	@Override
 	@GET
 	@Path("/{id}")
 	public Teacher getById(@PathParam("id") int id) {
-		return bean.getById(id);
+		Teacher teacher = bean.getById(id);
+		teacher.setSubjects(new ArrayList<Subject>()); // Will be changed
+		return teacher;
 	}
 
 	@Override
@@ -59,6 +65,7 @@ public class TeacherREST implements TeacherRepository {
 
 	@Override
 	@PUT
+	@Path("/{id}")
 	public String update(Teacher teacher) {
 		try {
 			bean.update(teacher);

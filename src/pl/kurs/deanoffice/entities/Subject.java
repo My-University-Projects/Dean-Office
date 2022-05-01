@@ -45,7 +45,7 @@ public class Subject implements Serializable {
 	}
 
 	public void setCode(String code) {
-		code = code;
+		this.code = code;
 	}
 
 	public List<Teacher> getTeachers() {

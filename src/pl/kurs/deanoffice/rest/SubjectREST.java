@@ -1,5 +1,6 @@
 package pl.kurs.deanoffice.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,7 +14,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import pl.kurs.deanoffice.ejb.SubjectEJB;
+import pl.kurs.deanoffice.entities.Grade;
 import pl.kurs.deanoffice.entities.Subject;
+import pl.kurs.deanoffice.entities.Teacher;
 import pl.kurs.deanoffice.repositories.SubjectRepository;
 
 @Path("/deanoffice/subjects")
@@ -34,14 +37,22 @@ public class SubjectREST implements SubjectRepository {
 	@Override
 	@GET
 	public List<Subject> get() {
-		return bean.get();
+		List<Subject> subjects = bean.get();
+		for (Subject s : subjects) {
+			s.setGrades(new ArrayList<Grade>());
+			s.setTeachers(new ArrayList<Teacher>());
+		}
+		return subjects;
 	}
 
 	@Override
 	@GET
 	@Path("/{id}")
 	public Subject getById(@PathParam("id") int id) {
-		return bean.getById(id);
+		Subject subject = bean.getById(id);
+		subject.setGrades(new ArrayList<Grade>());
+		subject.setTeachers(new ArrayList<Teacher>());
+		return subject;
 	}
 
 	@Override

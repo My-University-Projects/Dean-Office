@@ -1,5 +1,6 @@
 package pl.kurs.deanoffice.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import pl.kurs.deanoffice.ejb.StudentEJB;
+import pl.kurs.deanoffice.entities.Grade;
 import pl.kurs.deanoffice.entities.Student;
 import pl.kurs.deanoffice.repositories.StudentRepository;
 
@@ -34,14 +36,20 @@ public class StudentREST implements StudentRepository {
 	@Override
 	@GET
 	public List<Student> get() {
-		return bean.get();
+		List<Student> students = bean.get();
+		for (Student s : students) {
+			s.setGrades(new ArrayList<Grade>());
+		}
+		return students;
 	}
 
 	@Override
 	@GET
 	@Path("/{id}")
 	public Student getById(@PathParam("id") int id) {
-		return bean.getById(id);
+		Student student = bean.getById(id);
+		student.setGrades(new ArrayList<Grade>());
+		return student;
 	}
 
 	@Override
@@ -63,5 +71,4 @@ public class StudentREST implements StudentRepository {
 			return "Something went wrong. Student has not been updated";
 		}
 	}
-
 }

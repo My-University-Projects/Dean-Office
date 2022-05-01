@@ -1,6 +1,5 @@
 package pl.kurs.deanoffice.ejb;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,9 +10,7 @@ import javax.persistence.Query;
 import pl.kurs.deanoffice.entities.Subject;
 
 @Stateless
-public class SubjectEJB implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class SubjectEJB {
 	
 	@PersistenceContext(name = "deanOffice")
 	EntityManager entityManager;
