@@ -86,7 +86,6 @@ public class TeacherREST implements TeacherRepository {
 
 	@Override
 	@PUT
-	@Path("/{id}")
 	public Response update(Teacher teacher) {
 		try {
 			bean.update(teacher);
@@ -103,8 +102,14 @@ public class TeacherREST implements TeacherRepository {
 	@Path("/assignGradeToStudent")
 	public Response assignGradeToStudent(@HeaderParam("studentId") int studentId,
 			@HeaderParam("gradeValue") int gradeValue, @HeaderParam("subjectId") int subjectId) {
-		bean.assignGradeToStudent(studentId, gradeValue, subjectId);
-		return Response.ok("Grade added").build();
+		try {
+			bean.assignGradeToStudent(studentId, gradeValue, subjectId);
+			return Response.ok("Grade added").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST)
+					.entity("Something went wrong. Check provided student or subject id").build();
+		}
 
 	}
 
@@ -113,7 +118,14 @@ public class TeacherREST implements TeacherRepository {
 	@Path("/assignTeacherToSubject")
 	public Response assignTeacherToSubject(@HeaderParam("subjectId") int subjectId,
 			@HeaderParam("teacherId") int teacherId) {
-		bean.assignTeacherToSubject(subjectId, teacherId);
-		return Response.ok("Teacher assigned to subject").build();
+		try {
+			bean.assignTeacherToSubject(subjectId, teacherId);
+			return Response.ok("Teacher assigned to subject").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Check teacher od subject id")
+					.build();
+		}
+
 	}
 }

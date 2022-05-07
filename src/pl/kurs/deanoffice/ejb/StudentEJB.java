@@ -1,5 +1,6 @@
 package pl.kurs.deanoffice.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import pl.kurs.deanoffice.entities.Grade;
 import pl.kurs.deanoffice.entities.Student;
 
 @Stateless
@@ -25,12 +27,16 @@ public class StudentEJB {
 		Query q = entityManager.createQuery("select s from students s");
 		@SuppressWarnings("unchecked")
 		List<Student> resultStudents = q.getResultList();
+		for(Student s : resultStudents){
+			s.setGrades(new ArrayList<Grade>());
+		}
 		return resultStudents;
 	}
 
 	public Student getById(int id) {
 		System.out.println("Retrieving student by id");
 		Student student = this.entityManager.find(Student.class, id);
+		student.setGrades(new ArrayList<Grade>());
 		return student;
 	}
 

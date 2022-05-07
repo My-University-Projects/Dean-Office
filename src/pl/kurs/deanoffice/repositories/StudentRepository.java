@@ -1,11 +1,12 @@
 package pl.kurs.deanoffice.repositories;
 
-import java.util.List;
+
+import javax.ws.rs.core.Response;
 
 import pl.kurs.deanoffice.entities.Student;
 
 public interface StudentRepository extends Repository<Student> {
 	
-	abstract List<Integer> getGradesFromSubject(int subjectId, int studentId);
+	abstract Response getGradesFromSubject(int subjectId, int studentId);
 
 }

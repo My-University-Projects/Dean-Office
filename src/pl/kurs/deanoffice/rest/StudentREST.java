@@ -96,8 +96,14 @@ public class StudentREST implements StudentRepository {
 	@Override
 	@GET
 	@Path("/grades/{subjectId}")
-	public List<Integer> getGradesFromSubject(@PathParam("subjectId") int subjectId,
+	public Response getGradesFromSubject(@PathParam("subjectId") int subjectId,
 			@HeaderParam("studentId") int studentId) {
-		return bean.getGradesFromSubject(subjectId, studentId);
+		try {
+			return Response.ok(bean.getGradesFromSubject(subjectId, studentId)).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Check provided student id")
+					.build();
+		}
 	}
 }
