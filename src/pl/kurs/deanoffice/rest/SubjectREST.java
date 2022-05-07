@@ -1,6 +1,5 @@
 package pl.kurs.deanoffice.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,11 +11,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.SubjectEJB;
-import pl.kurs.deanoffice.entities.Grade;
 import pl.kurs.deanoffice.entities.Subject;
-import pl.kurs.deanoffice.entities.Teacher;
 import pl.kurs.deanoffice.repositories.SubjectRepository;
 
 @Path("/deanoffice/subjects")
@@ -29,49 +28,66 @@ public class SubjectREST implements SubjectRepository {
 
 	@Override
 	@POST
-	public String add(Subject subject) {
-		bean.add(subject);
-		return "Subject added";
+	public Response add(Subject subject) {
+		try {
+			bean.add(subject);
+			return Response.ok("Subject added").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Subject has not been added")
+					.build();
+		}
 	}
 
 	@Override
 	@GET
-	public List<Subject> get() {
-		List<Subject> subjects = bean.get();
-		for (Subject s : subjects) {
-			s.setGrades(new ArrayList<Grade>());
-			s.setTeachers(new ArrayList<Teacher>());
+	public Response get() {
+		try {
+			List<Subject> subjects = bean.get();
+			return Response.ok(subjects).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Subjects could not been retrieved")
+					.build();
 		}
-		return subjects;
 	}
 
 	@Override
 	@GET
 	@Path("/{id}")
-	public Subject getById(@PathParam("id") int id) {
-		Subject subject = bean.getById(id);
-		subject.setGrades(new ArrayList<Grade>());
-		subject.setTeachers(new ArrayList<Teacher>());
-		return subject;
+	public Response getById(@PathParam("id") int id) {
+		try {
+			Subject subject = bean.getById(id);
+			return Response.ok(subject).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Subject with provided id could not been found").build();
+		}
 	}
 
 	@Override
 	@DELETE
 	@Path("/{id}")
-	public String remove(@PathParam("id") int id) {
-		bean.remove(id);
-		return "Subject removed";
+	public Response remove(@PathParam("id") int id) {
+		try {
+			bean.remove(id);
+			return Response.ok("Subject removed").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Subject with provided id could not been found").build();
+		}
 	}
 
 	@Override
 	@PUT
-	public String update(Subject subject) {
+	public Response update(Subject subject) {
 		try {
 			bean.update(subject);
-			return "Subject updated";
+			return Response.ok("Subject updated").build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Something went wrong. Subject has not been updated";
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Subject has not been updated")
+					.build();
 		}
 	}
 }

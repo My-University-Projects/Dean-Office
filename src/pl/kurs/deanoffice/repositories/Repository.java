@@ -1,13 +1,17 @@
 package pl.kurs.deanoffice.repositories;
 
-import java.util.List;
+import javax.ws.rs.core.Response;
 
 public interface Repository<T> {
-	
-	abstract String add(T item);
-	abstract List<T> get();
-	abstract T getById(int id);
-	abstract String remove(int id);
-	abstract String update(T item);
-	
+
+	abstract Response add(T item);
+
+	abstract Response get();
+
+	abstract Response getById(int id);
+
+	abstract Response remove(int id);
+
+	abstract Response update(T item);
+
 }

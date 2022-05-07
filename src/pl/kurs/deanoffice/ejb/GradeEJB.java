@@ -17,7 +17,6 @@ public class GradeEJB {
 	
 	public void add(Grade grade) {
 		System.out.println("Creating grade");
-		System.out.println(entityManager.toString());
 		entityManager.persist(grade);
 	}
 
@@ -30,7 +29,8 @@ public class GradeEJB {
 
 	public Grade getById(int id) {
 		System.out.println("Retrieving grade by id");
-		return this.entityManager.find(Grade.class, id);
+		Grade grade = this.entityManager.find(Grade.class, id);
+		return grade;
 	}
 
 	public void remove(int id) {
@@ -42,8 +42,9 @@ public class GradeEJB {
 
 	public void update(Grade grade) {
 		System.out.println("Updating grade");
-		grade = entityManager.merge(grade);
-
+		Grade oldGrade = entityManager.find(Grade.class, grade.getId());
+		oldGrade.setGrade(grade.getGrade());
+		entityManager.persist(oldGrade);
 	}
 
 }

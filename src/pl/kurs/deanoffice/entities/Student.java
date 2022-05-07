@@ -1,15 +1,13 @@
 package pl.kurs.deanoffice.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "students")
 public class Student implements Serializable {
@@ -21,17 +19,18 @@ public class Student implements Serializable {
 	private Integer id;
 	private String name;
 	private String surname;
+	@Temporal(TemporalType.DATE)
 	private Date birthDate;
-	@OneToMany(mappedBy = "student")
-	private List<Grade> grades = new ArrayList<Grade>();
+	//@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+	//private List<Grade> grades = new ArrayList<Grade>();
 
-	public List<Grade> getGrades() {
-		return grades;
-	}
+	//public List<Grade> getGrades() {
+		//return grades;
+	//}
 
-	public void setGrades(List<Grade> grades) {
-		this.grades = grades;
-	}
+	//public void setGrades(List<Grade> grades) {
+		//this.grades = grades;
+	//}
 
 	public Integer getId() {
 		return id;

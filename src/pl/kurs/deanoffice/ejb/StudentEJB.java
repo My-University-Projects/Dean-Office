@@ -30,7 +30,8 @@ public class StudentEJB {
 
 	public Student getById(int id) {
 		System.out.println("Retrieving student by id");
-		return this.entityManager.find(Student.class, id);
+		Student student = this.entityManager.find(Student.class, id);
+		return student;
 	}
 
 	public void remove(int id) {
@@ -45,4 +46,15 @@ public class StudentEJB {
 		student = entityManager.merge(student);
 
 	}
+
+	public List<Integer> getGradesFromSubject(int subjectId, int studentId) {
+		Query q = entityManager
+				.createQuery("select g.grade from grades g where g.subject.id = :subjectId and g.student.id = :studentId"); //check for names in grade class, not in db
+		q.setParameter("studentId", studentId);
+		q.setParameter("subjectId", subjectId);
+		@SuppressWarnings("unchecked")
+		List<Integer> result = q.getResultList();
+		return result;
+	}
+
 }
