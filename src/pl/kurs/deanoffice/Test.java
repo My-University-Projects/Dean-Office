@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import pl.kurs.deanoffice.entities.Teacher;
+import pl.kurs.deanoffice.entity.Teacher;
 
 /*
  * Run this as application to check what schema database will be created

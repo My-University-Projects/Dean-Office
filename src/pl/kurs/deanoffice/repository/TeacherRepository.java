@@ -1,8 +1,8 @@
-package pl.kurs.deanoffice.repositories;
+package pl.kurs.deanoffice.repository;
 
 import javax.ws.rs.core.Response;
 
-import pl.kurs.deanoffice.entities.Teacher;
+import pl.kurs.deanoffice.entity.Teacher;
 
 public interface TeacherRepository extends Repository<Teacher> {
 	

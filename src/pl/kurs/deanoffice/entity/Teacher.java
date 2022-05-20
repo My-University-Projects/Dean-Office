@@ -1,8 +1,7 @@
-package pl.kurs.deanoffice.entities;
+package pl.kurs.deanoffice.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,12 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.ManyToMany;
 
-@Entity(name = "students")
-public class Student implements Serializable {
+@Entity(name = "teachers")
+public class Teacher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,18 +22,8 @@ public class Student implements Serializable {
 	private Integer id;
 	private String name;
 	private String surname;
-	@Temporal(TemporalType.DATE)
-	private Date birthDate;
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Grade> grades = new ArrayList<Grade>();
-
-	public List<Grade> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(List<Grade> grades) {
-		this.grades = grades;
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private List<Subject> subjects = new ArrayList<Subject>();
 
 	public Integer getId() {
 		return id;
@@ -62,12 +49,11 @@ public class Student implements Serializable {
 		this.surname = surname;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public List<Subject> getSubjects() {
+		return subjects;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
 	}
-
 }

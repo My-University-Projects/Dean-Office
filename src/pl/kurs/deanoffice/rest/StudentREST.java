@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.StudentEJB;
-import pl.kurs.deanoffice.entities.Student;
-import pl.kurs.deanoffice.repositories.StudentRepository;
+import pl.kurs.deanoffice.entity.Student;
+import pl.kurs.deanoffice.repository.StudentRepository;
 
 @Path("/deanoffice/students")
 @Consumes("application/json")

@@ -1,4 +1,4 @@
-package pl.kurs.deanoffice.entities;
+package pl.kurs.deanoffice.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ public class Grade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer grade;
+	private Float grade;
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Student student;
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -28,11 +28,11 @@ public class Grade {
 		this.id = id;
 	}
 	
-	public int getGrade() {
+	public Float getGrade() {
 		return grade;
 	}
 
-	public void setGrade(Integer grade) {
+	public void setGrade(Float grade) {
 		this.grade = grade;
 	}
 

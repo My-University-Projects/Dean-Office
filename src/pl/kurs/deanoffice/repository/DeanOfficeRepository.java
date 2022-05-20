@@ -1,6 +1,6 @@
-package pl.kurs.deanoffice.repositories;
+package pl.kurs.deanoffice.repository;
 
-import pl.kurs.deanoffice.entities.*;
+import pl.kurs.deanoffice.entity.*;
 
 public interface DeanOfficeRepository<T> extends Repository<T> {
 	

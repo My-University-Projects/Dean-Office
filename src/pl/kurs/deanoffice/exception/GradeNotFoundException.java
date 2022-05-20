@@ -1,4 +1,4 @@
-package pl.kurs.deanoffice.exceptions;
+package pl.kurs.deanoffice.exception;
 
 public class GradeNotFoundException extends ObjectNotFoundException {
 

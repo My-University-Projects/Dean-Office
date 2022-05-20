@@ -15,8 +15,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.SubjectEJB;
-import pl.kurs.deanoffice.entities.Subject;
-import pl.kurs.deanoffice.repositories.SubjectRepository;
+import pl.kurs.deanoffice.entity.Subject;
+import pl.kurs.deanoffice.repository.SubjectRepository;
 
 @Path("/deanoffice/subjects")
 @Consumes("application/json")
@@ -90,4 +90,18 @@ public class SubjectREST implements SubjectRepository {
 					.build();
 		}
 	}
+
+	@Override
+	@GET
+	@Path("subjectsTeachedByTeacher/{teacherId}")
+	public Response getSubjectsTeachedByTeacherWithProvidedId(@PathParam("teacherId") Integer teacherId) {
+		try{
+			return Response.ok(bean.getSubjectsTeachedByTeacherWithProvidedId(teacherId)).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. We could not find any subject").build();
+		}
+	}
+	
+	
 }

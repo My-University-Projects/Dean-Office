@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -17,9 +18,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.TeacherEJB;
-import pl.kurs.deanoffice.entities.Subject;
-import pl.kurs.deanoffice.entities.Teacher;
-import pl.kurs.deanoffice.repositories.TeacherRepository;
+import pl.kurs.deanoffice.entity.Subject;
+import pl.kurs.deanoffice.entity.Teacher;
+import pl.kurs.deanoffice.repository.TeacherRepository;
 
 @Path("/deanoffice/teachers")
 @Consumes("application/json")
@@ -128,4 +129,15 @@ public class TeacherREST implements TeacherRepository {
 		}
 
 	}
+
+	@OPTIONS
+	@Path("{path : .*}")
+	public Response options() {
+		return Response.ok("").header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+				.header("Access-Control-Allow-Credentials", "true")
+				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+				.header("Access-Control-Max-Age", "1209600").build();
+	}
+
 }

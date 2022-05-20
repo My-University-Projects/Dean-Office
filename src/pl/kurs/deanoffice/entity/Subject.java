@@ -1,4 +1,4 @@
-package pl.kurs.deanoffice.entities;
+package pl.kurs.deanoffice.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

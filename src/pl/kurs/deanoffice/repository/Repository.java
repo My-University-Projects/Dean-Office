@@ -1,4 +1,4 @@
-package pl.kurs.deanoffice.repositories;
+package pl.kurs.deanoffice.repository;
 
 import javax.ws.rs.core.Response;
 

@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import pl.kurs.deanoffice.entities.Grade;
-import pl.kurs.deanoffice.entities.Student;
-import pl.kurs.deanoffice.entities.Subject;
-import pl.kurs.deanoffice.entities.Teacher;
+import pl.kurs.deanoffice.entity.Grade;
+import pl.kurs.deanoffice.entity.Student;
+import pl.kurs.deanoffice.entity.Subject;
+import pl.kurs.deanoffice.entity.Teacher;
 
 @Stateless
 public class TeacherEJB {

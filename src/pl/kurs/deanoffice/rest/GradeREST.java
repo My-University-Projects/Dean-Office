@@ -13,8 +13,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.GradeEJB;
-import pl.kurs.deanoffice.entities.Grade;
-import pl.kurs.deanoffice.repositories.GradeRepository;
+import pl.kurs.deanoffice.entity.Grade;
+import pl.kurs.deanoffice.repository.GradeRepository;
 
 @Path("/deanoffice/grades")
 @Consumes("application/json")
@@ -84,6 +84,18 @@ public class GradeREST implements GradeRepository {
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Grade has not been updated")
 					.build();
+		}
+	}
+
+	@Override
+	@GET
+	@Path("/getGradesAverageFromSubject/{subjectId}")
+	public Response getGradesAverageFromSubjectWithProvidedId(@PathParam("subjectId") Integer subjectId) {
+		try{
+			return Response.ok(bean.getGradesAverageFromSubjectWithProvidedId(subjectId)).build();
+		} catch(Exception e){
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. We could not compute average").build();
 		}
 	}
 

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import pl.kurs.deanoffice.entities.Grade;
+import pl.kurs.deanoffice.entity.Grade;
 
 @Stateless
 public class GradeEJB {
@@ -45,6 +45,19 @@ public class GradeEJB {
 		Grade oldGrade = entityManager.find(Grade.class, grade.getId());
 		oldGrade.setGrade(grade.getGrade());
 		entityManager.persist(oldGrade);
+	}
+	
+	public Float getGradesAverageFromSubjectWithProvidedId(Integer subjectId){
+		Query q = entityManager.createQuery("select g from grades g where g.subject.id = :subjectId");
+		q.setParameter("subjectId", subjectId);
+		List<Grade> grades = q.getResultList();
+		int size = grades.size();
+		Float gradesSum = 0.0f;
+		for(Grade g : grades){
+			gradesSum += g.getGrade();
+		}
+		
+		return gradesSum/size;
 	}
 
 }
