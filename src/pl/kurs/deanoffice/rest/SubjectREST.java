@@ -16,6 +16,8 @@ import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.SubjectEJB;
 import pl.kurs.deanoffice.entity.Subject;
+import pl.kurs.deanoffice.exception.SubjectNotFoundException;
+import pl.kurs.deanoffice.exception.TeacherNotFoundException;
 import pl.kurs.deanoffice.repository.SubjectRepository;
 
 @Path("/deanoffice/subjects")
@@ -59,9 +61,12 @@ public class SubjectREST implements SubjectRepository {
 		try {
 			Subject subject = bean.getById(id);
 			return Response.ok(subject).build();
+		} catch (SubjectNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Subject with provided id could not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Subject has not been found")
+					.build();
 		}
 	}
 
@@ -72,9 +77,12 @@ public class SubjectREST implements SubjectRepository {
 		try {
 			bean.remove(id);
 			return Response.ok("Subject removed").build();
+		} catch (SubjectNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Subject with provided id could not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Subject has not been removed")
+					.build();
 		}
 	}
 
@@ -93,15 +101,17 @@ public class SubjectREST implements SubjectRepository {
 
 	@Override
 	@GET
-	@Path("subjectsTeachedByTeacher/{teacherId}")
-	public Response getSubjectsTeachedByTeacherWithProvidedId(@PathParam("teacherId") Integer teacherId) {
-		try{
-			return Response.ok(bean.getSubjectsTeachedByTeacherWithProvidedId(teacherId)).build();
-		}catch(Exception e){
+	@Path("subjectsTaughtByTeacher/{teacherId}")
+	public Response getSubjectsTaughtByTeacherWithProvidedId(@PathParam("teacherId") Integer teacherId) {
+		try {
+			return Response.ok(bean.getSubjectsTaughtByTeacherWithProvidedId(teacherId)).build();
+		} catch (TeacherNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. We could not find any subject").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. We could not find any subject")
+					.build();
 		}
 	}
-	
-	
+
 }

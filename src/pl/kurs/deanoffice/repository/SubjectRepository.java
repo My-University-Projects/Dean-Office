@@ -7,6 +7,6 @@ import pl.kurs.deanoffice.entity.Subject;
 
 public interface SubjectRepository extends Repository<Subject> {
 	
-	public Response getSubjectsTeachedByTeacherWithProvidedId(Integer teacherId);
+	public Response getSubjectsTaughtByTeacherWithProvidedId(Integer teacherId);
 
 }

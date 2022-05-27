@@ -2,8 +2,8 @@ package pl.kurs.deanoffice.exception;
 
 public class TeacherNotFoundException extends ObjectNotFoundException {
 
-	public TeacherNotFoundException(String message) {
-		super(message);
+	public TeacherNotFoundException() {
+		super("Teacher with provided id has not been found");
 	}
 
 	/**

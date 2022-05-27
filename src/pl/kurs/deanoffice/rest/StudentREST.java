@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response.Status;
 
 import pl.kurs.deanoffice.ejb.StudentEJB;
 import pl.kurs.deanoffice.entity.Student;
+import pl.kurs.deanoffice.exception.StudentNotFoundException;
+import pl.kurs.deanoffice.exception.SubjectNotFoundException;
 import pl.kurs.deanoffice.repository.StudentRepository;
 
 @Path("/deanoffice/students")
@@ -61,9 +63,12 @@ public class StudentREST implements StudentRepository {
 		try {
 			Student student = bean.getById(id);
 			return Response.ok(student).build();
+		} catch (StudentNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Student with provided id has not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Student has not been found")
+					.build();
 		}
 	}
 
@@ -74,9 +79,12 @@ public class StudentREST implements StudentRepository {
 		try {
 			bean.remove(id);
 			return Response.ok("Student removed").build();
+		} catch (StudentNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Student with provided id has not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Student has not been removed")
+					.build();
 		}
 	}
 
@@ -100,6 +108,10 @@ public class StudentREST implements StudentRepository {
 			@HeaderParam("studentId") int studentId) {
 		try {
 			return Response.ok(bean.getGradesFromSubject(subjectId, studentId)).build();
+		} catch (SubjectNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		} catch (StudentNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Check provided student id")

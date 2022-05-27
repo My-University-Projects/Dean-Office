@@ -19,6 +19,9 @@ import javax.ws.rs.core.Response.Status;
 import pl.kurs.deanoffice.ejb.TeacherEJB;
 import pl.kurs.deanoffice.entity.Subject;
 import pl.kurs.deanoffice.entity.Teacher;
+import pl.kurs.deanoffice.exception.StudentNotFoundException;
+import pl.kurs.deanoffice.exception.SubjectNotFoundException;
+import pl.kurs.deanoffice.exception.TeacherNotFoundException;
 import pl.kurs.deanoffice.repository.TeacherRepository;
 
 @Path("/deanoffice/teachers")
@@ -51,7 +54,7 @@ public class TeacherREST implements TeacherRepository {
 			return Response.ok(teachers).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Teachers could not been retrieved")
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Teachers has not been retrieved")
 					.build();
 		}
 	}
@@ -64,9 +67,12 @@ public class TeacherREST implements TeacherRepository {
 
 			Teacher teacher = bean.getById(id);
 			return Response.ok(teacher).build();
+		} catch (TeacherNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Teacher with provided id has not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Teacher has not been retrieved")
+					.build();
 		}
 	}
 
@@ -77,9 +83,12 @@ public class TeacherREST implements TeacherRepository {
 		try {
 			bean.remove(id);
 			return Response.ok("teacher removed").build();
+		} catch (TeacherNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Status.BAD_REQUEST).entity("Teacher with provided id has not been found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Teacher has not been removed")
+					.build();
 		}
 
 	}
@@ -105,6 +114,10 @@ public class TeacherREST implements TeacherRepository {
 		try {
 			bean.assignGradeToStudent(studentId, gradeValue, subjectId);
 			return Response.ok("Grade added").build();
+		} catch (StudentNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		} catch (SubjectNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST)
@@ -121,6 +134,10 @@ public class TeacherREST implements TeacherRepository {
 		try {
 			bean.assignTeacherToSubject(subjectId, teacherId);
 			return Response.ok("Teacher assigned to subject").build();
+		} catch (TeacherNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		} catch (SubjectNotFoundException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Status.BAD_REQUEST).entity("Something went wrong. Check teacher od subject id")
