@@ -1,1 +1,1 @@
-# Deanery
+# Dean office
