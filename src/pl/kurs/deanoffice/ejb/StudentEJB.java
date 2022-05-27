@@ -25,11 +25,14 @@ public class StudentEJB {
 
 	public List<Student> get() {
 		Query q = entityManager.createQuery("select s from students s");
+		
 		@SuppressWarnings("unchecked")
 		List<Student> resultStudents = q.getResultList();
-		for(Student s : resultStudents){
-			s.setGrades(new ArrayList<Grade>());
+		
+		for (Student s : resultStudents) {
+			s.setGrades(new ArrayList<Grade>()); // Will be changed
 		}
+		
 		return resultStudents;
 	}
 
@@ -37,6 +40,7 @@ public class StudentEJB {
 		System.out.println("Retrieving student by id");
 		Student student = this.entityManager.find(Student.class, id);
 		student.setGrades(new ArrayList<Grade>());
+		
 		return student;
 	}
 

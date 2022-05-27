@@ -8,7 +8,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
-import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -129,15 +128,4 @@ public class TeacherREST implements TeacherRepository {
 		}
 
 	}
-
-	@OPTIONS
-	@Path("{path : .*}")
-	public Response options() {
-		return Response.ok("").header("Access-Control-Allow-Origin", "*")
-				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-				.header("Access-Control-Allow-Credentials", "true")
-				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-				.header("Access-Control-Max-Age", "1209600").build();
-	}
-
 }

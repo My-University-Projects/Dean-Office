@@ -58,7 +58,7 @@ public class TeacherEJB {
 		
 	}
 	
-	public void assignGradeToStudent(int studentId, int gradeValue, int subjectId){
+	public void assignGradeToStudent(int studentId, float gradeValue, int subjectId){
 		Grade grade = new Grade();
 		grade.setGrade(gradeValue);
 		grade.setStudent(this.entityManager.find(Student.class, studentId));
